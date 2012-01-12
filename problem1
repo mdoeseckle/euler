@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# problem: Add all the natural numbers below one thousand that are multiples of 3 or 5.
+
 # this is more efficient to write, but runs slower since it iterates over the set of numbers twice -- once to filter and once to sum
 numberSet = range(1, 1000)
 multiples = filter(lambda x: x % 3 == 0 or x % 5 == 0, numberSet)

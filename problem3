@@ -1,0 +1,37 @@
+#!/usr/bin/python
+
+# problem: The prime factors of 13195 are 5, 7, 13 and 29.
+#          What is the largest prime factor of the number 600851475143 ?
+
+# prime factors of x are the sum of the prime factors of its multiples
+# how to detect if a number is prime quickly?
+
+import sys
+from math import sqrt
+
+# my first try using trial division
+input = 600851475143
+
+def main():
+  max = 1
+  print factors(input)
+
+  for factor in factors(input):
+    if(len(factors(factor)) == 0 and factor > max):
+      max = factor
+
+  print max
+
+def factors(value):
+  maxTrialValue = int(sqrt(value))
+  results = []
+
+  for candidate in range(2, maxTrialValue + 1):
+    if (value % candidate == 0):
+      results.append(candidate)
+      results.append(value / candidate)
+
+  return results  
+
+if __name__ == "__main__":
+  main()

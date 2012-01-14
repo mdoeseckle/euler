@@ -1,0 +1,29 @@
+#!/usr/bin/python
+
+# Find the largest palindrome made from the product of two 3-digit numbers.
+
+# initial implementation
+
+def biggestPalindrome(digits):
+  multiplicands = range(10**(digits-1), 10**digits)
+  multiplicands.reverse()  
+  
+  palindromes = []
+
+  for x in multiplicands:
+    for y in multiplicands:
+      if isPalindrome(x*y):
+        palindromes.append(x*y)
+
+  return max(palindromes)
+
+def isPalindrome(value):
+  strval = str(value)
+  for index in range(len(strval) / 2):
+    if strval[index] != strval[len(strval) - 1 - index]:
+      return False
+
+  return True
+
+if __name__ == "__main__":
+  print biggestPalindrome(3)

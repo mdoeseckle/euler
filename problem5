@@ -1,0 +1,53 @@
+#!/usr/bin/python
+
+# What is the smallest number divisible by each of the numbers 1 to 20?
+
+from math import sqrt
+from collections import defaultdict
+
+# returns an arbitrary [x, y] where x * y = value, and x, y != 1, value
+# if value is prime, returns None 
+def first_multiplicands(value):
+	maxCandidate = int(sqrt(value))
+	
+	for candidate in range(2, maxCandidate + 1):
+		if(value % candidate == 0):
+			return [candidate, value / candidate]
+
+	return []
+
+# returns a dictionary the prime multiplicands and the number of times used
+# ex. the prime multiplicands of 20 are 2*2*5, so this would return { 2:2, 5:1 }
+def prime_multiplicands(value):
+	multiplicands = first_multiplicands(value)
+
+	if not multiplicands:
+		return { value:1 }
+	
+	results = defaultdict(int)
+	
+	for k,v in prime_multiplicands(multiplicands.pop()).iteritems():
+		results[k] += v
+
+	for k,v in prime_multiplicands(multiplicands.pop()).iteritems():
+		results[k] += v
+
+	return results
+
+if __name__ == "__main__":
+	factors = range(1, 21)
+	multiplicands = defaultdict(int)
+
+	for entry in factors:
+		for k,v in prime_multiplicands(entry).iteritems():
+			if v > multiplicands[k]:
+			  multiplicands[k] = v
+
+	print multiplicands
+
+	answer = 1
+
+	for k,v in multiplicands.iteritems():
+	  answer *= k**v
+
+	print answer

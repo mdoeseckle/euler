@@ -1,20 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python:q
 
 # What is the 10 001st prime number?
 
 from math import sqrt
-
-def isPrime(value):
-	maxCandidate = int(sqrt(value))
-
-	if(value % 2 == 0):
-		return False
-
-	for candidate in range(3, maxCandidate + 1, 2):
-		if(value % candidate == 0):
-			return False
-
-	return True
+from primes import is_prime
 
 def nth_prime(n):
 	discoveredCount = 0
@@ -22,7 +11,7 @@ def nth_prime(n):
 	lastDiscovered = -1
 	
 	while(discoveredCount < n):
-		if(isPrime(candidate)):
+		if(is_prime(candidate)):
 			discoveredCount += 1
 			lastDiscovered = candidate
 
